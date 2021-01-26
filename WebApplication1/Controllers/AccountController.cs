@@ -59,9 +59,10 @@ namespace WebApplication1.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            var id = User.Identity.GetUserId();
             return new UserInfoViewModel
             {
+                
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
@@ -339,19 +340,19 @@ namespace WebApplication1.Controllers
                 return GetErrorResult(result);
             }
 
+            var currentUser = UserManager.FindByName(user.UserName);
+
+            var roleresult = UserManager.AddToRole(currentUser.Id,model.Role);
+
             string code = await this.UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             UserManager.EmailService = new WebApplication1.Services.EmailService();
+
             var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
 
             await this.UserManager.SendEmailAsync(user.Id,
                                                     "Confirm your account",
                                                     "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
-
-            //return Created(locationHeader, TheModelFactory.Create(user));
-
             return Ok();
         }
 

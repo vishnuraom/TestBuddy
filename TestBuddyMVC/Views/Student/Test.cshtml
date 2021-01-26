@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_Bootv4Layout.cshtml";
+}
+
+<br />
+<br />
+
+@section scripts {
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js" defer></script>
+    <script src="~/signalr/hubs" defer></script>
+    <script src="~/Scripts/localforage.min.js" defer></script>
+    <script src="~/Scripts/test.js" defer></script>
+    }
+
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3" style="font-size:50px">TestBuddy -Getting Started.</h1>
+        <p class="lead">1.Start a test when it is available.</p>
+        <p class="lead">2.No need to refresh the page to check if test is available.</p>
+        <p class="lead">3.Submit the test in time.</p>
+    </div>
+</div>
+<br />
+
+<div class="row" id="head2" hidden>
+
+    <div class="col-1"></div>
+    <div class="card w-75">
+        <div class="card-body">
+            <h4 class="card-title" id="testname"></h4>
+            <p class="card-text" id="desc"></p>
+            <button class="btn btn-primary" id="start">Start Test</button>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="card" id="head2" hidden>
+        <h3 class="card-header" id="testname"></h3>
+        <br />
+        <div class="card-block">
+            <h4 class="card-title" id="desc"></h4>
+            <button class="btn btn-primary" id="start">Start Test</button>
+        </div>
+    </div>*@
+
+<div id="test" hidden>
+    <div id="hmm" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h3 id="question"></h3>
+        </div>
+        <div class="col-2">Test finishes in <span id="time">05:00</span> minutes!</div>
+    </div>
+
+    <div class="row"><p></p></div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-sm-6">
+            <div class="radio">
+                <input type="radio" name="radio" id="radio1">
+                <label for="radio1">
+                </label>
+            </div>
+            <div class="radio">
+                <input type="radio" name="radio" id="radio2">
+                <label for="radio2">
+                </label>
+            </div>
+            <div class="radio">
+                <input type="radio" name="radio" id="radio3">
+                <label for="radio3">
+                </label>
+            </div>
+            <div class="radio">
+                <input type="radio" name="radio" id="radio4">
+                <label for="radio4">
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-2">
+            <button id="prev" type="submit" class="btn btn-success">Previous Question</button>
+        </div>
+
+        <div class="col-md-2">
+            <button id="next" class="btn btn-success" type="submit">Next Question</button>
+        </div>
+
+        <div class="col-md-2">
+            <button id="end" class="btn btn-danger" type="submit">End Test</button>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <p id="resultxx" style="font-size:60px;margin:20px auto">    </p>
+
+
+</div>
+<p id="resultpass" style="font-size:60px">    </p>
+
+
+@*<div class="row" id="head2" hidden>
+
+    <div class="col-1"></div>
+</div>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group" id="btngrp">
+    </div>
+</div>*@

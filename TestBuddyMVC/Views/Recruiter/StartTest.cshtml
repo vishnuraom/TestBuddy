@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "StartTest";
+    Layout = "~/Views/Shared/_RecruiterLayout.cshtml";
+}
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/starttest.js"></script>
+    <script>
+
+    $(function () {
+        var chat = $.connection.testHub;
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            console.log('Upload test Connection Established ');
+            $('#start').click(function () {
+                chat.server.sendTestMessage($('#TestId').val(), $('#testname').val(), $('#desc').val(), $('#maxtime').val());
+                console.log('code passed point');
+            });
+        });
+
+        chat.client.updateConnectedUsers = function (n) {
+            $('#lolconn').text(n);
+            $('#conn').text('No of Students connected:' + n);
+        };
+
+        chat.client.testSubmittedUsers = function (n) {
+            $('#lolsub').text(n);
+            $('#sub').text('No of students submitted:' + n);
+        };
+    });
+
+    </script>
+
+
+}
+
+<style>
+    .numberCircle {
+        border-radius: 50%;
+        width: 120px;
+        font-size: 32px;
+        border: 2px solid #666;
+        margin-left: 70px;
+    }
+
+        .numberCircle span {
+            text-align: center;
+            line-height: 120px;
+            display: block;
+        }
+</style>
+
+<div id="select_file">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3" style="font-size:50px">TestBuddy -Getting Started.</h1>
+            <p class="lead">1.Create a test.</p>
+            <p class="lead">2.Upload a question paper.</p>
+            <p class="lead">3.Start the test.</p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+
+        <div class="col-2"></div>
+        <label class="col-2 col-form-label">Choose Your Test Category :</label>
+        <div class="col-6">
+
+            <select id="category" class="form-control" required>
+                <option value="Computer">Computer</option>
+                <option value="Aptitude">Aptitude</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <label for="testname" class="col-2 col-form-label">Test Name :</label>
+        <div class="col-6">
+            <input class="form-control" type="text" id="testname" required>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <label for="desc" class="col-2 col-form-label">Description</label>
+        <div class="col-6">
+            <input class="form-control" type="text" id="desc" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <label for="maxmarks" class="col-2 col-form-label">Maximum Marks:</label>
+        <div class="col-6">
+            <input class="form-control" type="number" id="maxmarks" required />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <label for="minmarks" class="col-2 col-form-label">Minimum Marks</label>
+        <div class="col-6">
+            <input class="form-control" type="number" id="minmarks" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <label for="maxtime" class="col-2 col-form-label">Maximum Time in minutes</label>
+        <div class="col-6">
+            <input class="form-control" type="number" id="maxtime" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <input type="button" id="enter" class="btn btn-primary" value="Submit" />
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
+            <button type="reset" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="TestId" name="TestId" value="" hidden></div>
+
+<div id="upload_div" hidden>
+
+    <div>
+        <textarea id="data" class="text" hidden></textarea>
+    </div>
+
+
+    <div>
+        <textarea id="json" class="text" hidden></textarea>
+    </div>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3" style="font-size:50px">TestBuddy -Getting Started.</h1>
+            <p class="lead">1.Create a test.</p>
+            <p class="lead">2.Upload a question paper.</p>
+            <p class="lead">3.Start the test.</p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <label for="exampleInputFile" class="col">Select a question paper</label>
+            <input type="file" class="form-control-file" id="file" value="Select File" aria-describedby="fileHelp">
+            <small id="fileHelp" class="form-text text-muted">Please select .csv files only,other files are not supported.</small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <input type="button" id="b1" class="btn btn-primary" value="Upload" onclick="SaveToDb()" />
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
+            <button type="reset" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="admin" hidden>
+
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3" style="font-size:50px">Admin,the test is uploaded.Fire it up!</h1>
+            <p class="lead">1.Student pages are automatically uploaded.</p>
+            <p class="lead">2.Watch real time statistics.</p>
+            <p class="lead">
+                <button class="btn btn-primary" id="start">Start Test</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-2"></div>
+        <div class="col-4">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Images/down.jpg" alt="Card image cap" />
+                <div class="card-block">
+                    <h4 class="card-title">Students Connected</h4>
+                    <div class="numberCircle"><span id="lolconn" style="font-size:100px">0</span></div>
+                    <p class="card-text" id="conn">No of Students connected:</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2"></div>
+        <div class="col-4">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/Images/down.jpg" alt="Card image cap" />
+                <div class="card-block">
+                    <h4 class="card-title">Students Submitted</h4>
+                    <div class="numberCircle"><span id="lolsub" style="font-size:100px">0</span></div>
+                    <p class="card-text" id="sub" style="font-size:large">No of Students submitted:0</p>
+                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

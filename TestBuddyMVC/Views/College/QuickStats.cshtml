@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "QuickStats";
+    Layout = "~/Views/Shared/_CollegeLayout.cshtml";
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/quickstats.js"></script>
+
+
+<!--Performance-->
+
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3" style="font-size:50px">Check for the student performance.</h1>
+        <p class="lead">1.This is a simple dashboard unit,for quickly assessing the students performance over a period of time and able to contact them with a click.</p>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Select a test to download its details,also sending emails to students is only a click away!</h3>
+    </div>
+    <div class="panel-body">
+        <br />
+        <select style="text-align:center" class="form-control" id="SelectTest">
+            <option>loading...</option>
+        </select>
+        <div class="alert alert-dismissible alert-warning" id="alert" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Try Again!</h4>
+            <p>Your Result Not Found</p>
+        </div>
+        <p><p><p></p>
+        <button class="btn btn-primary btn-lg" id="submit">Submit</button>
+    </div>
+</div>
+<!--Performance-->
+@*<div class="jumbotron-fluid">
+
+        <h3>Select a test to download its details,also sending emails to students is only a click away!</h3>
+        <p><p></p>
+        <select style="text-align:center" class="form-control" id="SelectTest">
+            <option>loading...</option>
+        </select>
+        <div class="alert alert-dismissible alert-warning" id="alert" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Try Again!</h4>
+            <p>Your Result Not Found</p>
+        </div>
+        <p><p><p></p>
+        <button class="btn btn-primary btn-lg" id="submit">Submit</button>
+    </div>*@
+
+
+<!-- Modal for the selected table data -->
+<div class="modal fade" id="Modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Student Data</h4>
+            </div>
+            <div class="modal-body">
+                <img src="~/Images/loading.gif" id="imgLoading" hidden />
+                <table class="table table-striped table-hover " id="ResultTable"></table>
+                <!--Download table data in Excel file-->
+
+            </div>
+            <div class="modal-footer">
+                <!--Download table data in Excel file-->
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnDownloadExcel">Download</button>
+                <!--To Open Sending Mail-->
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnSendMail">Send Mail</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for the Sending Mail -->
+<div class="modal fade" id="MailModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Send message to all the students</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="emailbody" name="emailbody" value="" placeholder="Enter your Body of messsage" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="Send">Send</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

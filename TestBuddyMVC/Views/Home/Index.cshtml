@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LoginRegistration</title>
+    <link href="~/Content/manual/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/manual/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/manual/form-elements.css" rel="stylesheet" />
+    <link href="~/Content/manual/style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <style>
+        .bg-video {
+            position: relative;
+            min-height: 100%;
+            min-height: 100%;
+            height: auto;
+            width: auto;
+            overflow: auto;
+            background-size: cover;
+        }
+
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            transform: translateX(-50%) translateY(-50%);
+            background-image: url('../../Images/exam-wallpaper-1920x1080.jpg');
+            height: auto;
+            z-index: -100;
+            background-size: cover;
+            transition: 1s opacity;
+            object-fit: fill;
+            filter: blur(4px);
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="bg-video">
+        <video autoplay="autoplay" muted="muted" loop="loop">
+            <source src="~/Images/VID-20171023-WA0000.mp4" type="video/mp4" />
+        </video>
+    </div>
+    <div class="top-content">
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1>Test Buddy</h1>
+                        <p></p><strong>Login &amp; Sign Up</strong>
+                        <div class="description">
+                            <strong>  We provide online test for the student which helps recruiter to select the best of student whoever register.</strong>
+                            </br><strong>We are Test Buddy. An Online Test Web App.</strong>
+                            </br><strong>Student can take the test to increase their chance to get selected.</strong>
+                            </br><strong>College can take test of their student and make them more employable.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-5">
+
+                        <div class="form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Login to your Account</h3>
+                                    <p>Enter username and password to log on:</p>
+                                </div>
+                                <div class="form-top-left">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">Email ID</label>
+                                    <input type="text" name="emailid" autofocus placeholder="xyz@abc.com" class="form-username form-control input-error" id="emailid">
+                                </div>
+                                <div class="form-bottom" id="#message_email_fail" hidden></div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password" name="password" placeholder="*********" class="form-password form-control input-error" id="password">
+                                </div>
+                                <div id="lresult"  class="form-group" style="color:black;font-size:16px"></div>
+                                <button id="login" name="login" type="submit" class="btn">Log In</button>
+                            </div>
+                        </div>
+                   <div>
+             </div>
+        </div>
+
+                    <div class="col-sm-1 middle-border"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-5" id="signup_page">
+                        <div class="form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>New to our website</h3>
+                                    <p>Fill up the form to know you for next time</p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-box">
+                                <div class="form-group">
+                                    <label class="sr-only">Name</label>
+                                    <input type="text" name="form-first-name" placeholder="Your Name" class="form-email form-control input-error" id="form-first-name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-last-name">Email Id</label>
+                                    <input type="email" placeholder="abc@xyz.com" class="form-email form-control input-error" id="emailId" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Password</label>
+                                    <input type="password" name="password" placeholder="*******" class="form-email form-control input-error" id="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Confirm Password</label>
+                                    <input type="password" id="confirm_password" name="confirm_password" placeholder="*******" class="form-email form-control input-error" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-about-yourself">Phone Number</label>
+                                    <input type="tel" name="phone_No" id="phone_No" placeholder="9876543210" class="form-email form-control input-error" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-about-yourself">Type of User</label>
+                                    <select id="typeOfUser" name="typeOfUser" class="form-email form-control input-error">
+                                        <option value="Student">Student</option>
+                                        <option value="Admin">College/Institute</option>
+                                        <option value="Recruiter">Recruiter</option>
+                                    </select>
+                                </div>
+                                <button id="signup" name="signup" class="btn">Sign me up!</button>
+                                <div class="form-group" id="sresult" style="color:black;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/landing.js"></script>
+</body>
+</html>

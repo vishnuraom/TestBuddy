@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using WebApplication1.Models;
 
 namespace WebApplication1.Services
 {
@@ -22,15 +23,38 @@ namespace WebApplication1.Services
         private async Task configSendGridasync(IdentityMessage message)
         {
         var client = new SendGridClient("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");
-        var from = new EmailAddress("vishnumechineni@gmail.com", "Admin TestBuddy");
+        var from = new EmailAddress("admin@testbuddy.com", "Admin TestBuddy");
         var subject = message.Subject;
         var to = new EmailAddress(message.Destination, "User");
-            //var plainTextContent = "and easy to do anywhere, even with C#";
-            var plainTextContent = message.Body;
-            var htmlContent = message.Body;
-            //var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+        var plainTextContent = message.Body;
+        var htmlContent = message.Body;
         var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
         var response = await client.SendEmailAsync(msg);
+        }
+
+
+
+        public async Task SendAsyncMultiple(List<string> destinations,string body)
+        {
+            await configSendGridasync(destinations,body);
+        }
+
+        private async Task configSendGridasync(List<string> destinations,string body)
+        {
+            List<EmailAddress> s = new List<EmailAddress>();
+            foreach (var email in destinations)
+            {
+                var toemail = new EmailAddress(email, "User");
+
+                s.Add(toemail);
+            }
+            var client = new SendGridClient("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");
+            var from = new EmailAddress("admin@testbuddy.com", "Admin TestBuddy");
+            var subject = body;
+            var plainTextContent =body;
+            var htmlContent = body;
+            var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, s, subject, plainTextContent, htmlContent,true);
+            var response = await client.SendEmailAsync(msg);
         }
     }
 }

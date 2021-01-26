@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Bootv4Layout.cshtml";
+}
+</br>
+    
+<div class="row">
+    <div class="col-md-3">
+        <h2>Student Dashboard</h2>
+    </div>
+
+    <div class="col-md-3">
+        <button type="submit" id="show" value="Show Chart">Show Chart</button>
+
+    </div>
+    <div class="col-7">
+    </div>
+    
+ </div>
+<canvas id="myChart" class="chartjs-render-monitor"></canvas>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/Chart.min.js"></script>
+<script src="~/Scripts/dashboard.js"></script>
+
+
+
+

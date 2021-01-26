@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Performance";
+    Layout = "~/Views/Shared/_CollegeLayout.cshtml";
+}
+
+<h2>Performance Students</h2>
+
+<script src="~/Scripts/Chart.min.js"></script>
+@*<script src="~/Scripts/performance.js"></script>*@
+</br>
+</br>
+</br>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Select a test</h3>
+    </div>
+    <div class="panel-body">
+        <br />
+        <select style="text-align:center" class="form-control" id="SelectTest">
+            <option>loading...</option>
+        </select>
+        <div class="alert alert-dismissible alert-warning" id="alert" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Try Again!</h4>
+            <p>Your Result Not Found</p>
+        </div>
+        <p><p><p></p>
+        <button class="btn btn-primary btn-lg" id="submit">Submit</button>
+    </div>
+</div>
+<div style="height:600px;width:600px;margin-left:300px">
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:59257/api/Company/TestName",
+            data: [],
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log(data);
+                var result = '';
+                $('#SelectTest').empty();
+                result = "<option disabled>Select Test Name</option>";
+                $.each(data, function (index, record) {
+                    result += '<option value="' + record.TestId + '">' + record.TestName + '</option>';
+                });
+                $('#SelectTest').append(result);
+            }
+        });
+
+    });
+
+
+
+    $('#SelectTest').change(function () {
+
+        var count = 0;
+        var division = [];
+        division[0] = 0;
+        division[1] = 0;
+        division[2] = 0;
+
+        var x = "test1";
+
+        $.ajax({
+            url: 'http://localhost:59257/api/results?testid=' + $('#SelectTest').val(),
+            type: 'get'
+        }).done(function (response) {
+            console.log(response);
+            $.each(response, function (index, value) {
+                if (value.Percentage > 70) {
+                    division[0] += 1;
+                }
+                else if (value.Percentage > 40) {
+                    division[1] += 1;
+                }
+                else {
+                    division[2] += 1;
+                }
+            })
+
+            var ctx = document.getElementById("myChart").getContext('2d');
+
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["above 70", "40-70", "Fail"],
+                    datasets: [{
+                        backgroundColor: [
+                          "#2ecc71",
+                          "#14dee5",
+                          "#e74c3c"
+                        ],
+                        data: division
+                    }]
+                }
+            });
+        })
+
+    });
+
+</script>
